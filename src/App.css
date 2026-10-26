@@ -1,0 +1,2644 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  font-family: 'DM Sans', Arial, sans-serif;
+  color: #e8e6df;
+  background: #111210;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: #111210;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #a6ab8f;
+  outline-offset: 4px;
+}
+
+::selection {
+  color: #111210;
+  background: #d2d0c5;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.store {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  color: #e8e6df;
+  background:
+    radial-gradient(ellipse at 50% 53%, rgba(111, 109, 91, 0.13), transparent 42%),
+    radial-gradient(ellipse at 50% 100%, rgba(64, 65, 54, 0.13), transparent 55%),
+    #111210;
+}
+
+/* Barra de navegação */
+.topbar {
+  position: fixed;
+  z-index: 30;
+  top: 23px;
+  right: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  padding: 0 5.2%;
+  pointer-events: none;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  color: #efeee7;
+  font-family: 'Manrope', sans-serif;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.095em;
+  line-height: 1;
+  text-decoration: none;
+  pointer-events: auto;
+  transition: opacity 0.25s ease;
+}
+
+.brand span {
+  color: #a6ab8f;
+}
+
+.brand:hover {
+  opacity: 0.75;
+}
+
+/* Ilha dinâmica */
+.dynamic-island {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  gap: 2px;
+  width: min(420px, calc(100vw - 230px));
+  max-width: calc(100vw - 230px);
+  padding: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.095);
+  border-radius: 100px;
+  background: rgba(31, 32, 28, 0.77);
+  box-shadow:
+    0 8px 35px rgba(0, 0, 0, 0.19),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(22px) saturate(135%);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  pointer-events: auto;
+  animation: island-enter-centered 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.island-active-bg {
+  position: absolute;
+  z-index: 0;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: calc((100% - 10px) / 4);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.10);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.island-link {
+  position: relative;
+  z-index: 1;
+  display: block;
+  flex: 1 1 0;
+  width: 25%;
+  min-width: 0;
+  min-height: 34px;
+  padding: 0 7px;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  color: #999a91;
+  background: transparent;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.065em;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.island-link:hover,
+.island-link.active {
+  color: #efeee7;
+}
+
+.island-link:active {
+  transform: scale(0.96);
+}
+
+/* Sacola no topo */
+.bag-button {
+  position: relative;
+  display: grid;
+  width: 43px;
+  height: 43px;
+  flex: 0 0 auto;
+  justify-self: end;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #e8e6df;
+  background: rgba(31, 32, 28, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.bag-button:hover {
+  border-color: rgba(255, 255, 255, 0.23);
+  background: #30312b;
+  transform: translateY(-2px);
+}
+
+.bag-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  display: grid;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  place-items: center;
+  border: 1px solid #111210;
+  border-radius: 100px;
+  color: #171813;
+  background: #c9cabb;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+/* Guarda-roupa centralizado */
+.showroom {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  place-items: center;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0e0e0d;
+  background-image:
+    /* Respiro suave no centro, onde ficam as camisetas */
+    radial-gradient(ellipse at 50% 52%, rgba(255, 244, 226, 0.05), transparent 46%),
+    /* Escurece as bordas: separa a foto da interface e dá profundidade */
+    radial-gradient(ellipse at 50% 50%, transparent 52%, rgba(6, 6, 5, 0.55) 100%),
+    url('/backgrounds/Alcova%20Minimalista%20de%20Madeira%20e%20Luz%20Quente.png');
+  background-repeat: no-repeat;
+  background-position: center, center, center 42%;
+  background-size: 100% 100%, 100% 100%, cover;
+}
+
+/* Telas em retrato (celulares): mantém o enquadramento da imagem de fundo */
+@media (max-aspect-ratio: 4 / 5) {
+  .showroom {
+    background-image:
+      radial-gradient(ellipse at 50% 52%, rgba(255, 244, 226, 0.05), transparent 46%),
+      radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(6, 6, 5, 0.6) 100%),
+      url('/backgrounds/Alcova%20Minimalista%20de%20Madeira%20e%20Luz%20Quente.png');
+    background-position: center, center, center 46%;
+  }
+}
+
+.showroom-glow {
+  position: absolute;
+  z-index: 0;
+  width: min(75vw, 980px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(85px);
+}
+
+.showroom-glow-one {
+  top: 15%;
+  left: 50%;
+  background: rgba(134, 127, 104, 0.055);
+  transform: translateX(-50%);
+}
+
+.showroom-glow-two {
+  right: -15%;
+  bottom: -55%;
+  background: rgba(80, 86, 68, 0.08);
+}
+
+.wardrobe-stage {
+  position: relative;
+  z-index: 1;
+  width: min(1280px, 96vw);
+  height: min(86svh, 880px);
+  min-height: 500px;
+  margin: 0 auto;
+  perspective: 1200px;
+  animation: stage-entrance 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.wardrobe-3d {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wardrobe-3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.wardrobe-3d canvas:active {
+  cursor: grabbing;
+}
+
+.detail-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.three-loading {
+  padding: 12px 16px;
+  border: 1px solid rgba(220, 218, 205, 0.12);
+  border-radius: 30px;
+  color: #d2d0c5;
+  background: rgba(20, 21, 18, 0.9);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+}
+
+/* Janela do produto */
+.overlay {
+  position: fixed;
+  z-index: 110;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(7, 8, 7, 0.84);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  animation: fade-in 0.22s ease both;
+}
+
+.product-modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 4px;
+  background: #1c1d19;
+  box-shadow: 0 35px 120px rgba(0, 0, 0, 0.42);
+  transform-origin: center;
+  animation: product-enter 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.modal-visual {
+  position: relative;
+  min-width: 0;
+  min-height: 465px;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(ellipse at 50% 45%, #393a31, #242520 70%);
+}
+
+.modal-visual .wardrobe-3d {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+}
+
+.modal-visual::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  background: linear-gradient(
+    112deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.055) 47%,
+    transparent 65%
+  );
+  transform: translateX(-110%);
+  animation: detail-light-sweep 1.15s 0.12s ease-out both;
+}
+
+.modal-visual-label {
+  position: absolute;
+  z-index: 3;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #929389;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+}
+
+.modal-visual-label span:last-child {
+  color: #6d6f65;
+}
+
+.close-button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  color: #e8e6df;
+  background: rgba(22, 23, 20, 0.82);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.close-button:hover {
+  background: #383a31;
+}
+
+.modal-close {
+  position: absolute;
+  z-index: 5;
+  top: 14px;
+  right: 14px;
+}
+
+.modal-info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 36px;
+  overflow-y: auto;
+}
+
+.modal-info .eyebrow {
+  flex-wrap: wrap;
+  gap: 9px;
+  font-size: 8px;
+  color: #9a9b90;
+  letter-spacing: 0.14em;
+}
+
+.eyebrow-divider {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #73756a;
+}
+
+.modal-info h1 {
+  margin: 23px 0 8px;
+  color: #eeeae1;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(25px, 3vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 1.12;
+}
+
+.modal-price {
+  margin: 0;
+  color: #d1d0c5;
+  font-size: 14px;
+}
+
+.modal-description {
+  margin: 22px 0;
+  color: #999a90;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.product-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 24px;
+  padding: 15px 0;
+  border-top: 1px solid #383a32;
+  border-bottom: 1px solid #383a32;
+}
+
+.product-specs > div > span {
+  color: #74766c;
+  font-size: 8px;
+  letter-spacing: 0.13em;
+}
+
+.product-specs p {
+  margin: 8px 0 0;
+  color: #c6c5bb;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.field-label {
+  margin-bottom: 12px;
+  color: #93948a;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+}
+
+.color-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 24px;
+}
+
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  border: 2px solid #1c1d19;
+  border-radius: 50%;
+  outline: 1px solid transparent;
+  cursor: pointer;
+  transition: outline-color 0.2s ease, transform 0.2s ease;
+}
+
+.color-swatch.selected {
+  outline-color: #d7d5cb;
+}
+
+.color-swatch:hover {
+  outline-color: #8b8d80;
+  transform: scale(1.06);
+}
+
+.color-name {
+  margin-left: 4px;
+  color: #b2b2a7;
+  font-size: 10px;
+}
+
+.sizes {
+  display: flex;
+  gap: 8px;
+}
+
+.size {
+  width: 42px;
+  height: 40px;
+  border: 1px solid #41433a;
+  color: #d9d8d0;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.size.active,
+.size:hover {
+  border-color: #d0d0c5;
+  color: #181914;
+  background: #d0d0c5;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 25px;
+  padding: 16px;
+  border: 1px solid #d2d0c5;
+  color: #191a16;
+  background: #d2d0c5;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.add-button span {
+  margin-left: auto;
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+.add-button:hover {
+  border-color: #efeee5;
+  background: #efeee5;
+}
+
+.modal-note {
+  margin: 13px 0 0;
+  color: #77786e;
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+/* Sacola lateral */
+.bag-overlay {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.bag-drawer {
+  display: flex;
+  width: min(430px, 100%);
+  height: 100%;
+  flex-direction: column;
+  padding: 30px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  background: #191a17;
+  box-shadow: -25px 0 90px rgba(0, 0, 0, 0.28);
+  animation: drawer-in 0.28s ease both;
+}
+
+.drawer-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #393b33;
+}
+
+.drawer-heading .eyebrow {
+  font-size: 8px;
+}
+
+.drawer-heading h2 {
+  margin: 14px 0 0;
+  color: #eeeae1;
+  font-family: 'Manrope', sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+
+.drawer-heading h2 span {
+  color: #929389;
+  font-size: 15px;
+}
+
+.empty-bag {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #929389;
+  text-align: center;
+}
+
+.empty-bag > p {
+  margin: 20px 0 7px;
+  color: #e8e6df;
+  font-size: 15px;
+}
+
+.empty-bag > span {
+  font-size: 11px;
+}
+
+.empty-bag > button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding: 14px;
+  border: 1px solid #45473d;
+  color: #e8e6df;
+  background: transparent;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.empty-bag > button:hover {
+  background: #292a24;
+}
+
+.cart-list {
+  flex: 1;
+  overflow: auto;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 0;
+  border-bottom: 1px solid #34362f;
+}
+
+.cart-swatch {
+  width: 58px;
+  height: 70px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cart-item-info {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.cart-item-info strong {
+  color: #e8e6df;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cart-item-info span,
+.cart-item-info small {
+  color: #929389;
+  font-size: 10px;
+}
+
+.remove-item {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  color: #999a90;
+  background: transparent;
+  cursor: pointer;
+}
+
+.remove-item:hover {
+  color: #eeeae1;
+}
+
+/* Quantidade na sacola */
+.quantity-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 5px;
+  padding: 3px;
+  border: 1px solid #383a32;
+  border-radius: 30px;
+}
+
+.quantity-control > span {
+  min-width: 12px;
+  color: #e8e6df;
+  font-size: 10px;
+  text-align: center;
+}
+
+.quantity-button {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #bdbdb2;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.quantity-button:hover {
+  color: #171813;
+  background: #d2d0c5;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 22px 0 0;
+  border-top: 1px solid #414238;
+  color: #c7c6bc;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.cart-total strong {
+  color: #eeeae1;
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+.checkout-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid #41433a;
+  color: #77796e;
+  background: #22231e;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  cursor: not-allowed;
+}
+
+.checkout-button:disabled {
+  opacity: 0.75;
+}
+
+/* Animações */
+@keyframes island-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+@keyframes island-enter-centered {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes stage-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(13px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes product-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.975);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes detail-light-sweep {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(110%); }
+}
+
+@keyframes drawer-in {
+  from {
+    opacity: 0.5;
+    transform: translateX(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Telas grandes */
+@media (min-width: 1500px) {
+  .wardrobe-stage {
+    width: min(1360px, 96vw);
+  }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .topbar {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .dynamic-island {
+    max-width: calc(100vw - 205px);
+  }
+
+  .wardrobe-stage {
+    width: 100%;
+  }
+}
+
+/* Celulares */
+@media (max-width: 650px) {
+  .topbar {
+    top: 15px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 10px;
+    align-items: center;
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .brand {
+    margin-top: 0;
+    font-size: 21px;
+  }
+
+  .bag-button {
+    width: 39px;
+    height: 39px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .dynamic-island {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+    width: min(420px, 100%);
+    max-width: 100%;
+    gap: 2px;
+    padding: 4px;
+  }
+
+  .island-active-bg {
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: calc((100% - 8px) / 4);
+  }
+
+  .island-link {
+    min-height: 31px;
+    padding: 0 5px;
+    font-size: 8px;
+    letter-spacing: 0.025em;
+  }
+
+  .showroom {
+    min-height: 100svh;
+  }
+
+  .wardrobe-stage {
+    width: 100%;
+    height: 78svh;
+    min-height: 420px;
+    max-height: 720px;
+  }
+
+  .product-modal {
+    grid-template-columns: 1fr;
+    max-height: 93svh;
+    overflow-y: auto;
+  }
+
+  .modal-visual {
+    min-height: 225px;
+    height: 29svh;
+    max-height: 290px;
+  }
+
+  .modal-info {
+    padding: 25px 22px;
+    overflow: visible;
+  }
+
+  .modal-info h1 {
+    margin-top: 17px;
+  }
+
+  .modal-description {
+    margin: 15px 0 20px;
+  }
+
+  .product-specs {
+    margin-bottom: 20px;
+  }
+
+  .color-row {
+    margin-bottom: 20px;
+  }
+
+  .bag-drawer {
+    padding: 24px 20px;
+  }
+
+  .overlay {
+    padding: 10px;
+  }
+
+  .bag-overlay {
+    padding: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .island-link {
+    padding: 0 4px;
+    font-size: 7px;
+  }
+
+  .brand {
+    font-size: 19px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ==========================================
+   FORME STUDIO — FROSTED GLASS INTERFACE
+   Painel de produto + ilha dinâmica + sacola
+   ========================================== */
+
+:root {
+  --glass-surface: rgba(228, 222, 210, 0.095);
+  --glass-surface-strong: rgba(228, 222, 210, 0.145);
+  --glass-border: rgba(255, 255, 255, 0.19);
+  --glass-border-soft: rgba(255, 255, 255, 0.11);
+  --glass-text: rgba(255, 253, 248, 0.94);
+  --glass-muted: rgba(255, 253, 248, 0.62);
+  --glass-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+}
+
+/* Fundo permanece visível por trás das superfícies. */
+.overlay {
+  background: rgba(8, 8, 7, 0.24);
+  backdrop-filter: blur(5px) saturate(125%);
+  -webkit-backdrop-filter: blur(5px) saturate(125%);
+  padding: 24px;
+}
+
+/* ==========================================
+   NAVEGAÇÃO — ILHA DINÂMICA
+   ========================================== */
+
+.topbar {
+  z-index: 100;
+}
+
+.dynamic-island {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.13),
+      rgba(255, 255, 255, 0.045) 55%,
+      rgba(255, 255, 255, 0.075)
+    ) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 12px 40px rgba(0, 0, 0, 0.2);
+
+  backdrop-filter: blur(28px) saturate(165%);
+  -webkit-backdrop-filter: blur(28px) saturate(165%);
+
+  isolation: isolate;
+  transition:
+    background 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+/* Mantém os botões integrados à superfície de vidro. */
+.island-link {
+  position: relative;
+  z-index: 1;
+
+  color: rgba(255, 253, 248, 0.65);
+  border: 1px solid transparent;
+  background: transparent;
+
+  transition:
+    color 220ms ease,
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.island-link:hover {
+  color: rgba(255, 253, 248, 0.96);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.island-link.active {
+  color: #fffdf7;
+  background: rgba(255, 255, 255, 0.135);
+  border-color: rgba(255, 255, 255, 0.15);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 3px 12px rgba(0, 0, 0, 0.09);
+}
+
+/* Mantém o indicador existente com aparência de vidro. */
+.island-indicator {
+  background: rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 12px rgba(0, 0, 0, 0.08);
+
+  transition:
+    background 280ms ease,
+    border-color 280ms ease;
+}
+
+/* Sacola flutuante com transparência. */
+.bag-button {
+  color: var(--glass-text);
+  background: rgba(255, 255, 255, 0.065);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 8px 25px rgba(0, 0, 0, 0.15);
+
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.bag-button:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+}
+
+.bag-count {
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================
+   INFORMAÇÕES DO PRODUTO — PAINEL DE VIDRO
+   ========================================== */
+
+.overlay .product-modal {
+  color: var(--glass-text);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(244, 239, 229, 0.16),
+      rgba(194, 184, 168, 0.075) 45%,
+      rgba(255, 255, 255, 0.045)
+    );
+
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.21),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.055),
+    var(--glass-shadow);
+
+  backdrop-filter: blur(32px) saturate(155%);
+  -webkit-backdrop-filter: blur(32px) saturate(155%);
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Área de visualização 3D. */
+.modal-visual {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 42%,
+      rgba(218, 205, 183, 0.105),
+      transparent 65%
+    ),
+    rgba(17, 17, 15, 0.18);
+
+  border-right: 1px solid var(--glass-border-soft);
+}
+
+/* Rótulo da visualização, integrado à interface. */
+.modal-visual-label {
+  color: rgba(255, 253, 248, 0.65);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+/* Área das informações como um segundo vidro interno. */
+.modal-info {
+  position: relative;
+  min-width: 0;
+  color: var(--glass-text);
+
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.085),
+      rgba(255, 255, 255, 0.025)
+    );
+
+  border-left: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+/* Tipografia das informações. */
+.modal-info h1,
+.modal-info h2,
+.modal-info h3 {
+  color: #fffdf8;
+  letter-spacing: -0.045em;
+}
+
+.modal-info p {
+  color: rgba(255, 253, 248, 0.79);
+}
+
+.modal-info .eyebrow,
+.modal-info .field-label {
+  color: var(--glass-muted);
+  letter-spacing: 0.13em;
+}
+
+.modal-price {
+  color: #fffdf8 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Separadores discretos, como na referência. */
+.eyebrow-divider {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.product-specs {
+  border-top: 1px solid var(--glass-border-soft);
+  border-bottom: 1px solid var(--glass-border-soft);
+}
+
+.product-specs > div {
+  background: transparent;
+}
+
+.product-specs > div + div {
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+}
+
+.product-specs span {
+  color: rgba(255, 253, 248, 0.55);
+  letter-spacing: 0.1em;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+/* Seleção de cores. */
+.color-swatch {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.08);
+}
+
+.color-swatch.selected {
+  border-color: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.19),
+    0 3px 14px rgba(0, 0, 0, 0.18);
+}
+
+.color-name {
+  color: rgba(255, 253, 248, 0.75);
+}
+
+/* Tamanhos como pequenos controles de vidro. */
+.size {
+  color: rgba(255, 253, 248, 0.78);
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.size:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.size.active {
+  color: #171714;
+  background: rgba(255, 253, 247, 0.94);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Botão de compra: contraste claro dentro do painel. */
+.add-button {
+  color: #181815;
+  background: rgba(255, 253, 247, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.66);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 7px 24px rgba(0, 0, 0, 0.13);
+
+  transition:
+    background 220ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.add-button:hover {
+  background: #fffdf8;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+}
+
+.modal-note {
+  color: rgba(255, 253, 248, 0.47) !important;
+}
+
+/* Botões de fechar. */
+.close-button {
+  color: rgba(255, 253, 248, 0.88);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.27);
+  transform: rotate(4deg);
+}
+
+/* ==========================================
+   SACOLA — MESMA LINGUAGEM DE VIDRO
+   ========================================== */
+
+.overlay .bag-drawer {
+  color: var(--glass-text);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(49, 47, 43, 0.83),
+      rgba(27, 27, 25, 0.72)
+    );
+
+  border: 1px solid var(--glass-border);
+  border-radius: 28px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    var(--glass-shadow);
+
+  backdrop-filter: blur(34px) saturate(150%);
+  -webkit-backdrop-filter: blur(34px) saturate(150%);
+}
+
+.drawer-heading {
+  border-bottom: 1px solid var(--glass-border-soft);
+}
+
+.drawer-heading h2 {
+  color: #fffdf8;
+}
+
+.drawer-heading h2 span,
+.empty-bag span {
+  color: var(--glass-muted);
+}
+
+.cart-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.cart-item-info strong {
+  color: #fffdf8;
+}
+
+.cart-item-info span,
+.cart-item-info small {
+  color: var(--glass-muted);
+}
+
+/* ==========================================
+   RESPONSIVO
+   ========================================== */
+
+@media (max-width: 760px) {
+  .overlay {
+    padding: 12px;
+  }
+
+  .dynamic-island {
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+  }
+
+  .overlay .product-modal {
+    border-radius: 22px;
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+  }
+
+  .modal-visual {
+    border-right: 0;
+    border-bottom: 1px solid var(--glass-border-soft);
+  }
+
+  .modal-info {
+    border-left: 0;
+  }
+
+  .overlay .bag-drawer {
+    border-radius: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dynamic-island,
+  .island-link,
+  .bag-button,
+  .color-swatch,
+  .size,
+  .add-button,
+  .close-button {
+    transition-duration: 0.01ms;
+  }
+}
+
+
+/* Mais espaço entre a ilha dinâmica e o closet */
+.showroom .wardrobe-stage {
+  translate: 0 36px;
+}
+
+@media (max-width: 760px) {
+  .showroom .wardrobe-stage {
+    translate: 0 22px;
+  }
+}
+
+
+/* =====================================================
+   FORME STUDIO — PREMIUM LIQUID GLASS
+   Interface, ilha dinâmica, produto e sacola
+   ===================================================== */
+
+:root {
+  --forme-glass-white: rgba(255, 252, 244, 0.88);
+  --forme-glass-muted: rgba(255, 252, 244, 0.58);
+  --forme-glass-line: rgba(255, 255, 255, 0.19);
+  --forme-glass-line-soft: rgba(255, 255, 255, 0.09);
+  --forme-glass-dark: rgba(26, 25, 23, 0.30);
+  --forme-glass-blur: 36px;
+}
+
+/* A cena continua visível atrás das interfaces. */
+.overlay {
+  background: rgba(10, 9, 8, 0.20);
+  backdrop-filter: blur(9px) saturate(135%);
+  -webkit-backdrop-filter: blur(9px) saturate(135%);
+}
+
+/* =====================================================
+   DYNAMIC ISLAND — vidro escuro com profundidade
+   ===================================================== */
+
+.dynamic-island {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.105) 0%,
+      rgba(255, 255, 255, 0.035) 42%,
+      rgba(0, 0, 0, 0.13) 100%
+    ),
+    rgba(35, 34, 31, 0.56) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 999px;
+
+  backdrop-filter: blur(32px) saturate(180%) brightness(1.08);
+  -webkit-backdrop-filter: blur(32px) saturate(180%) brightness(1.08);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    inset 1px 0 0 rgba(255, 255, 255, 0.045),
+    0 14px 38px rgba(0, 0, 0, 0.24),
+    0 2px 8px rgba(0, 0, 0, 0.12);
+
+  transition:
+    background 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+/* Reflexo especular sutil na borda superior. */
+.dynamic-island::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+
+  top: 1px;
+  left: 9%;
+  width: 82%;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.31) 24%,
+    rgba(255, 255, 255, 0.48) 50%,
+    rgba(255, 255, 255, 0.24) 76%,
+    transparent
+  );
+
+  opacity: 0.78;
+}
+
+/* Etiquetas com contraste mais delicado. */
+.island-link {
+  color: rgba(255, 252, 244, 0.61);
+  background: transparent;
+  border: 1px solid transparent;
+
+  transition:
+    background 240ms ease,
+    color 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.island-link:hover {
+  color: rgba(255, 252, 244, 0.96);
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.island-link.active {
+  color: #fffdf7;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.19),
+      rgba(255, 255, 255, 0.085)
+    );
+
+  border-color: rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.23),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.035),
+    0 3px 9px rgba(0, 0, 0, 0.08);
+}
+
+/* Indicador existente: mantém a posição e recebe acabamento de vidro. */
+.island-indicator {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.13),
+    rgba(255, 255, 255, 0.035)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Sacola flutuante. */
+.bag-button {
+  color: var(--forme-glass-white);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.105),
+      rgba(255, 255, 255, 0.025)
+    ),
+    rgba(31, 30, 27, 0.38);
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  backdrop-filter: blur(26px) saturate(175%);
+  -webkit-backdrop-filter: blur(26px) saturate(175%);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 8px 24px rgba(0, 0, 0, 0.17);
+
+  transition:
+    background 240ms ease,
+    border-color 240ms ease,
+    box-shadow 240ms ease,
+    transform 240ms ease;
+}
+
+.bag-button:hover {
+  background-color: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.29);
+  transform: translateY(-1px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.23),
+    0 12px 30px rgba(0, 0, 0, 0.23);
+}
+
+/* =====================================================
+   PRODUCT MODAL — vidro fumê com refração visual
+   ===================================================== */
+
+.overlay .product-modal {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  color: var(--forme-glass-white);
+
+  background:
+    radial-gradient(
+      ellipse at 12% 0%,
+      rgba(255, 255, 255, 0.17),
+      transparent 46%
+    ),
+    linear-gradient(
+      140deg,
+      rgba(235, 228, 214, 0.15) 0%,
+      rgba(184, 174, 157, 0.065) 38%,
+      rgba(32, 30, 27, 0.35) 100%
+    ),
+    rgba(37, 35, 31, 0.35);
+
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 30px;
+
+  backdrop-filter: blur(var(--forme-glass-blur)) saturate(165%) brightness(1.06);
+  -webkit-backdrop-filter: blur(var(--forme-glass-blur)) saturate(165%) brightness(1.06);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
+    inset 0 -24px 48px rgba(0, 0, 0, 0.075),
+    0 30px 90px rgba(0, 0, 0, 0.36),
+    0 8px 28px rgba(0, 0, 0, 0.14);
+}
+
+/* Filete de luz que percorre a borda superior do painel. */
+.overlay .product-modal::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+
+  top: 0;
+  left: 7%;
+  width: 86%;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.43) 22%,
+    rgba(255, 255, 255, 0.63) 50%,
+    rgba(255, 255, 255, 0.30) 78%,
+    transparent
+  );
+
+  z-index: 3;
+}
+
+/* Duas superfícies com profundidades distintas. */
+.modal-visual {
+  background:
+    radial-gradient(
+      ellipse at 50% 38%,
+      rgba(226, 212, 190, 0.10),
+      transparent 67%
+    ),
+    rgba(14, 13, 11, 0.10);
+
+  border-right: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.modal-info {
+  color: var(--forme-glass-white);
+
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.075),
+      rgba(255, 255, 255, 0.018) 65%,
+      rgba(0, 0, 0, 0.045)
+    );
+}
+
+/* Hierarquia tipográfica discreta. */
+.modal-info h1,
+.modal-info h2,
+.modal-info h3 {
+  color: #fffdf7;
+  letter-spacing: -0.045em;
+}
+
+.modal-info p {
+  color: rgba(255, 252, 244, 0.77);
+}
+
+.modal-info .eyebrow,
+.modal-info .field-label {
+  color: rgba(255, 252, 244, 0.54);
+  letter-spacing: 0.13em;
+}
+
+.modal-price {
+  color: #fffdf7 !important;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Divisórias de baixo contraste. */
+.eyebrow-divider {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.product-specs {
+  border-top: 1px solid rgba(255, 255, 255, 0.105);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.105);
+}
+
+.product-specs > div {
+  background: transparent;
+}
+
+.product-specs > div + div {
+  border-top: 1px solid rgba(255, 255, 255, 0.065);
+}
+
+.product-specs span {
+  color: rgba(255, 252, 244, 0.48);
+}
+
+/* Swatches: contorno fino, sem peso visual excessivo. */
+.color-swatch {
+  border: 1px solid rgba(255, 255, 255, 0.29);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.13);
+
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.06);
+}
+
+.color-swatch.selected {
+  border-color: rgba(255, 255, 255, 0.95);
+
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.17),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    0 3px 12px rgba(0, 0, 0, 0.18);
+}
+
+.color-name {
+  color: rgba(255, 252, 244, 0.70);
+}
+
+/* Tamanhos em vidro translúcido. */
+.size {
+  color: rgba(255, 252, 244, 0.76);
+
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.size:hover {
+  background: rgba(255, 255, 255, 0.085);
+  border-color: rgba(255, 255, 255, 0.27);
+}
+
+.size.active {
+  color: #191815;
+  background: linear-gradient(
+    180deg,
+    #fffef9,
+    rgba(233, 228, 217, 0.93)
+  );
+
+  border-color: rgba(255, 255, 255, 0.83);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 3px 12px rgba(0, 0, 0, 0.10);
+}
+
+/* Ação principal com material claro acetinado. */
+.add-button {
+  color: #181714;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 254, 249, 0.98),
+    rgba(226, 220, 209, 0.94)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.72);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.035),
+    0 7px 22px rgba(0, 0, 0, 0.14);
+
+  transition:
+    background 220ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.add-button:hover {
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    #f1ede4
+  );
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 11px 28px rgba(0, 0, 0, 0.20);
+}
+
+.modal-note {
+  color: rgba(255, 252, 244, 0.42) !important;
+}
+
+/* Fechar: vidro transparente, não botão sólido. */
+.close-button {
+  color: rgba(255, 252, 244, 0.88);
+
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+/* =====================================================
+   SACOLA — MESMO SISTEMA DE MATERIAIS
+   ===================================================== */
+
+.overlay .bag-drawer {
+  color: var(--forme-glass-white);
+
+  background:
+    radial-gradient(
+      ellipse at 100% 0%,
+      rgba(255, 255, 255, 0.10),
+      transparent 48%
+    ),
+    linear-gradient(
+      150deg,
+      rgba(83, 78, 69, 0.68),
+      rgba(30, 29, 26, 0.75)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.21);
+  border-radius: 28px;
+
+  backdrop-filter: blur(38px) saturate(165%) brightness(1.05);
+  -webkit-backdrop-filter: blur(38px) saturate(165%) brightness(1.05);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.21),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.025),
+    0 28px 80px rgba(0, 0, 0, 0.37);
+}
+
+.drawer-heading {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.drawer-heading h2,
+.cart-item-info strong {
+  color: #fffdf7;
+}
+
+.drawer-heading h2 span,
+.empty-bag span,
+.cart-item-info span,
+.cart-item-info small {
+  color: var(--forme-glass-muted);
+}
+
+.cart-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.085);
+}
+
+/* =====================================================
+   AJUSTES DE TELAS MENORES
+   ===================================================== */
+
+@media (max-width: 760px) {
+  .overlay {
+    padding: 12px;
+    background: rgba(8, 7, 6, 0.28);
+
+    backdrop-filter: blur(7px) saturate(125%);
+    -webkit-backdrop-filter: blur(7px) saturate(125%);
+  }
+
+  .dynamic-island {
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+  }
+
+  .overlay .product-modal {
+    border-radius: 24px;
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+  }
+
+  .modal-visual {
+    height: clamp(180px, 26svh, 220px);
+    min-height: 0;
+    max-height: 220px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .modal-info {
+    border-left: 0;
+  }
+
+  .overlay .bag-drawer {
+    border-radius: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dynamic-island,
+  .island-link,
+  .bag-button,
+  .color-swatch,
+  .size,
+  .add-button,
+  .close-button {
+    transition-duration: 0.01ms;
+  }
+}
+
+
+/* ==========================================
+   FORME — SEARCH EXPERIENCE
+   Pesquisa com vidro fosco e resultados
+   ========================================== */
+
+/* Mantém a lupa e a sacola lado a lado. */
+.topbar .topbar-actions {
+  grid-column: 3;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 11px;
+  min-width: 0;
+  pointer-events: auto;
+  position: relative;
+  z-index: 4;
+}
+
+.topbar .topbar-actions .bag-button {
+  grid-column: auto;
+  grid-row: auto;
+  justify-self: auto;
+}
+
+/* Botão da lupa. */
+.search-toggle {
+  display: grid;
+  width: 43px;
+  height: 43px;
+  flex: 0 0 auto;
+  place-items: center;
+
+  color: rgba(255, 252, 244, 0.88);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.10),
+      rgba(255, 255, 255, 0.025)
+    ),
+    rgba(31, 30, 27, 0.42);
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+
+  backdrop-filter: blur(25px) saturate(165%);
+  -webkit-backdrop-filter: blur(25px) saturate(165%);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 7px 22px rgba(0, 0, 0, 0.15);
+
+  cursor: pointer;
+
+  transition:
+    color 220ms ease,
+    background 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.search-toggle:hover,
+.search-toggle[aria-expanded="true"] {
+  color: #fffdf7;
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.29);
+  transform: translateY(-1px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.search-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Camada de fundo ao abrir a pesquisa. */
+.search-overlay {
+  position: fixed;
+  z-index: 120;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding: 91px 20px 24px;
+
+  background: rgba(8, 8, 7, 0.36);
+
+  backdrop-filter: blur(9px) saturate(125%);
+  -webkit-backdrop-filter: blur(9px) saturate(125%);
+
+  animation: search-backdrop-in 220ms ease both;
+}
+
+/* Painel principal de vidro. */
+.search-panel {
+  position: relative;
+  width: min(610px, 100%);
+  max-height: min(760px, calc(100svh - 115px));
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  color: rgba(255, 252, 244, 0.92);
+
+  background:
+    radial-gradient(
+      ellipse at 12% 0%,
+      rgba(255, 255, 255, 0.12),
+      transparent 48%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(72, 68, 60, 0.63),
+      rgba(28, 28, 25, 0.78)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 25px;
+
+  backdrop-filter: blur(38px) saturate(170%) brightness(1.06);
+  -webkit-backdrop-filter: blur(38px) saturate(170%) brightness(1.06);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.025),
+    0 30px 90px rgba(0, 0, 0, 0.40);
+
+  animation: search-panel-in 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Filete de luz na borda superior. */
+.search-panel::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 7%;
+  width: 86%;
+  height: 1px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.36),
+    rgba(255, 255, 255, 0.59),
+    rgba(255, 255, 255, 0.27),
+    transparent
+  );
+}
+
+/* Campo de busca. */
+.search-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 18px 18px 17px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.105);
+}
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  flex: 1;
+  min-width: 0;
+
+  color: rgba(255, 252, 244, 0.72);
+}
+
+.search-input-wrap > svg {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.search-input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 0;
+
+  color: #fffdf7;
+  background: transparent;
+  border: 0;
+  outline: none;
+
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 252, 244, 0.45);
+}
+
+.search-input:focus-visible {
+  outline: none;
+}
+
+.search-input::-webkit-search-cancel-button {
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+.search-panel kbd {
+  flex-shrink: 0;
+  padding: 4px 6px;
+
+  color: rgba(255, 252, 244, 0.48);
+  background: rgba(255, 255, 255, 0.045);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+
+  font-family: inherit;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.search-close {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+
+  color: rgba(255, 252, 244, 0.75);
+  background: rgba(255, 255, 255, 0.055);
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.search-close:hover {
+  color: #fffdf7;
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+/* Conteúdo rolável. */
+.search-panel-body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 20px 14px;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+.search-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-bottom: 22px;
+
+  color: rgba(255, 252, 244, 0.48);
+
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+}
+
+.search-meta span:last-child {
+  color: rgba(255, 252, 244, 0.32);
+}
+
+/* Sugestões rápidas. */
+.search-section-title {
+  margin: 0 0 12px;
+
+  color: rgba(255, 252, 244, 0.54);
+
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.search-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-bottom: 25px;
+}
+
+.search-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 12px;
+
+  color: rgba(255, 252, 244, 0.76);
+  background: rgba(255, 255, 255, 0.045);
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 100px;
+
+  font-size: 11px;
+
+  cursor: pointer;
+
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.search-chip:hover {
+  color: #fffdf7;
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.search-chip svg {
+  opacity: 0.56;
+}
+
+/* Lista de resultados. */
+.search-results {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  width: 100%;
+  min-width: 0;
+  padding: 12px 9px;
+
+  color: rgba(255, 252, 244, 0.89);
+  text-align: left;
+
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.search-result:last-child {
+  border-bottom-color: transparent;
+}
+
+.search-result:hover {
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.search-result:active {
+  transform: scale(0.99);
+}
+
+.search-result-swatch {
+  display: block;
+  width: 39px;
+  height: 47px;
+  flex: 0 0 auto;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 7px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.search-result-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.search-result-copy strong {
+  overflow: hidden;
+
+  color: rgba(255, 253, 247, 0.96);
+
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-result-copy > span {
+  overflow: hidden;
+
+  color: rgba(255, 252, 244, 0.48);
+
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-result-price {
+  flex-shrink: 0;
+  color: rgba(255, 252, 244, 0.73);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.search-result-arrow {
+  flex-shrink: 0;
+  color: rgba(255, 252, 244, 0.40);
+
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.search-result:hover .search-result-arrow {
+  color: rgba(255, 252, 244, 0.9);
+  transform: translate(2px, -2px);
+}
+
+/* Estado sem resultados. */
+.search-empty {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 36px 18px 42px;
+  text-align: center;
+}
+
+.search-empty > svg {
+  margin-bottom: 17px;
+  color: rgba(255, 252, 244, 0.48);
+}
+
+.search-empty strong {
+  color: rgba(255, 253, 247, 0.92);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.search-empty p {
+  max-width: 330px;
+  margin: 10px 0 20px;
+
+  color: rgba(255, 252, 244, 0.54);
+
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.search-reset {
+  padding: 10px 13px;
+
+  color: rgba(255, 252, 244, 0.78);
+  background: rgba(255, 255, 255, 0.055);
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 7px;
+
+  font-size: 9px;
+  letter-spacing: 0.09em;
+
+  cursor: pointer;
+}
+
+.search-reset:hover {
+  background: rgba(255, 255, 255, 0.11);
+}
+
+/* Rodapé editorial. */
+.search-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-top: 15px;
+  padding-top: 14px;
+
+  color: rgba(255, 252, 244, 0.30);
+  border-top: 1px solid rgba(255, 255, 255, 0.075);
+
+  font-size: 8px;
+  letter-spacing: 0.10em;
+}
+
+/* Animações independentes, sem interferir no closet. */
+@keyframes search-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes search-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-9px) scale(0.985);
+    filter: blur(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Evita sobreposição entre ações e navegação. */
+@media (max-width: 900px) {
+  .topbar .topbar-actions {
+    gap: 7px;
+  }
+
+  .search-toggle {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 650px) {
+  .topbar .topbar-actions {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    gap: 8px;
+  }
+
+  .topbar .topbar-actions .search-toggle,
+  .topbar .topbar-actions .bag-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .search-overlay {
+    padding: 112px 12px 15px;
+  }
+
+  .search-panel {
+    max-height: calc(100svh - 128px);
+    border-radius: 21px;
+  }
+
+  .search-panel-header {
+    gap: 8px;
+    padding: 14px 12px;
+  }
+
+  .search-input-wrap {
+    gap: 9px;
+  }
+
+  .search-input {
+    font-size: 13px;
+  }
+
+  .search-panel kbd {
+    display: none;
+  }
+
+  .search-panel-body {
+    padding: 17px 12px 12px;
+  }
+
+  .search-result {
+    gap: 10px;
+    padding: 11px 6px;
+  }
+
+  .search-result-swatch {
+    width: 35px;
+    height: 43px;
+  }
+
+  .search-result-copy > span {
+    font-size: 9px;
+  }
+
+  .search-result-price {
+    font-size: 10px;
+  }
+
+  .search-footer {
+    font-size: 7px;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-overlay,
+  .search-panel,
+  .search-toggle,
+  .search-chip,
+  .search-result,
+  .search-result-arrow {
+    animation-duration: 0.01ms;
+    transition-duration: 0.01ms;
+  }
+}
